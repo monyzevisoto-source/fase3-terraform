@@ -123,3 +123,9 @@ variable "ecr_image_tag_mutability" {
   type        = string
   default     = "MUTABLE"
 }
+
+variable "argocd_chart_version" {
+  description = "Pinned official Argo CD Helm chart version."
+  type        = string
+  default     = "10.9.0"
+}

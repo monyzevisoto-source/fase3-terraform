@@ -86,3 +86,8 @@ output "ecr_repository_urls" {
 #  description = "Name of the EKS cluster managed by the EKS module."
 #  value       = module.eks.cluster_name
 #}
+
+output "argocd_namespace" {
+  description = "Namespace where Argo CD is installed."
+  value       = module.argocd.namespace
+}

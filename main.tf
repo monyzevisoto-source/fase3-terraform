@@ -156,3 +156,9 @@ module "ecr_analytics" {
   image_tag_mutability = var.ecr_image_tag_mutability
   tags                 = local.common_tags
 }
+
+module "argocd" {
+  source        = "./modules/argocd"
+  chart_version = var.argocd_chart_version
+  depends_on    = [module.eks]
+}

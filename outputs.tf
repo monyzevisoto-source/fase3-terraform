@@ -91,3 +91,8 @@ output "argocd_namespace" {
   description = "Namespace where Argo CD is installed."
   value       = module.argocd.namespace
 }
+
+output "ingress_nginx_namespace" {
+  description = "Namespace where the community NGINX ingress controller is installed."
+  value       = module.ingress_nginx.namespace
+}

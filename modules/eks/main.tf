@@ -40,3 +40,12 @@ resource "aws_eks_node_group" "main" {
     Name = "${var.project_name}-${var.environment}-nodes"
   })
 }
+
+resource "aws_eks_addon" "metrics_server" {
+  cluster_name  = aws_eks_cluster.main.name
+  addon_name    = "metrics-server"
+  addon_version = var.metrics_server_addon_version
+  tags          = var.tags
+
+  depends_on = [aws_eks_node_group.main]
+}

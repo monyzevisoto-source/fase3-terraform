@@ -129,3 +129,15 @@ variable "argocd_chart_version" {
   type        = string
   default     = "10.9.0"
 }
+
+variable "ingress_nginx_chart_version" {
+  description = "Pinned community ingress-nginx chart version, retained for lab compatibility after project retirement."
+  type        = string
+  default     = "4.15.1"
+}
+
+variable "metrics_server_addon_version" {
+  description = "Pinned Metrics Server add-on version, validated for EKS 1.36."
+  type        = string
+  default     = "v0.9.0-eksbuild.10"
+}

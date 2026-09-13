@@ -52,3 +52,8 @@ variable "node_max_size" {
   type        = number
   default     = 2
 }
+
+variable "metrics_server_addon_version" {
+  description = "Pinned EKS Metrics Server add-on version compatible with the cluster."
+  type        = string
+}

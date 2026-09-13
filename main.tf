@@ -23,17 +23,18 @@ module "network" {
 #}
 #
 module "eks" {
-  source             = "./modules/eks"
-  project_name       = var.project_name
-  environment        = var.environment
-  region             = var.aws_region
-  tags               = local.common_tags
-  subnet_ids         = module.network.public_subnet_ids
-  lab_role_name      = var.eks_lab_role_name
-  node_instance_type = var.eks_node_instance_type
-  node_desired_size  = var.eks_node_desired_size
-  node_min_size      = var.eks_node_min_size
-  node_max_size      = var.eks_node_max_size
+  metrics_server_addon_version = var.metrics_server_addon_version
+  source                       = "./modules/eks"
+  project_name                 = var.project_name
+  environment                  = var.environment
+  region                       = var.aws_region
+  tags                         = local.common_tags
+  subnet_ids                   = module.network.public_subnet_ids
+  lab_role_name                = var.eks_lab_role_name
+  node_instance_type           = var.eks_node_instance_type
+  node_desired_size            = var.eks_node_desired_size
+  node_min_size                = var.eks_node_min_size
+  node_max_size                = var.eks_node_max_size
 }
 
 module "rds_auth" {
@@ -161,4 +162,12 @@ module "argocd" {
   source        = "./modules/argocd"
   chart_version = var.argocd_chart_version
   depends_on    = [module.eks]
+}
+
+module "ingress_nginx" {
+  source            = "./modules/ingress_nginx"
+  chart_version     = var.ingress_nginx_chart_version
+  public_subnet_ids = module.network.public_subnet_ids
+  tags              = local.common_tags
+  depends_on        = [module.eks]
 }

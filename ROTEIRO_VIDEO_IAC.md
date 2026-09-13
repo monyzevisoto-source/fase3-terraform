@@ -54,7 +54,7 @@ requisito do desafio:
 | --- | --- | --- |
 | `network` | VPC, duas subnets públicas, duas privadas, Internet Gateway e rotas | Networking |
 | `eks` | Cluster EKS e Managed Node Group | Kubernetes |
-| `rds` | Três instâncias PostgreSQL: `auth`, `flag` e `analytics` | Bancos relacionais |
+| `rds` | Três instâncias PostgreSQL: `auth`, `flag` e `targeting` | Bancos relacionais |
 | `redis` | Replication Group ElastiCache Redis em subnets privadas | Cache |
 | `dynamodb` | Tabela `ToggleMasterAnalytics` | Dados analíticos |
 | `sqs` | Fila de eventos | Mensageria |

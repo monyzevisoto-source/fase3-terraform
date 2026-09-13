@@ -37,20 +37,27 @@ module "eks" {
   node_max_size                = var.eks_node_max_size
 }
 
+ephemeral "aws_secretsmanager_secret_version" "auth_database" {
+  secret_id = "fiap-fase3/dev/auth/database"
+}
+
 module "rds_auth" {
-  source                = "./modules/rds"
-  project_name          = var.project_name
-  environment           = var.environment
-  tags                  = local.common_tags
-  vpc_id                = module.network.vpc_id
-  vpc_cidr_block        = module.network.vpc_cidr_block
-  private_subnet_ids    = module.network.private_subnet_ids
-  instance_name         = "auth"
-  database_name         = "authdb"
-  instance_class        = var.rds_instance_class
-  allocated_storage     = var.rds_allocated_storage
-  max_allocated_storage = var.rds_max_allocated_storage
-  master_username       = var.rds_master_username
+  master_password_wo          = jsondecode(ephemeral.aws_secretsmanager_secret_version.auth_database.secret_string).password
+  master_password_wo_version  = 1
+  manage_master_user_password = false
+  source                      = "./modules/rds"
+  project_name                = var.project_name
+  environment                 = var.environment
+  tags                        = local.common_tags
+  vpc_id                      = module.network.vpc_id
+  vpc_cidr_block              = module.network.vpc_cidr_block
+  private_subnet_ids          = module.network.private_subnet_ids
+  instance_name               = "auth"
+  database_name               = "authdb"
+  instance_class              = var.rds_instance_class
+  allocated_storage           = var.rds_allocated_storage
+  max_allocated_storage       = var.rds_max_allocated_storage
+  master_username             = var.rds_master_username
 }
 
 module "rds_flag" {
@@ -69,7 +76,7 @@ module "rds_flag" {
   master_username       = var.rds_master_username
 }
 
-module "rds_analytics" {
+module "rds_targeting" {
   source                = "./modules/rds"
   project_name          = var.project_name
   environment           = var.environment
@@ -77,8 +84,8 @@ module "rds_analytics" {
   vpc_id                = module.network.vpc_id
   vpc_cidr_block        = module.network.vpc_cidr_block
   private_subnet_ids    = module.network.private_subnet_ids
-  instance_name         = "analytics"
-  database_name         = "analyticsdb"
+  instance_name         = "targeting"
+  database_name         = "targetingdb"
   instance_class        = var.rds_instance_class
   allocated_storage     = var.rds_allocated_storage
   max_allocated_storage = var.rds_max_allocated_storage

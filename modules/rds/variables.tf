@@ -61,3 +61,23 @@ variable "master_username" {
   type        = string
   default     = "postgresadmin"
 }
+
+variable "manage_master_user_password" {
+  description = "Whether RDS manages the master password. When false, provision and rotate the password externally."
+  type        = bool
+  default     = true
+}
+
+variable "master_password_wo" {
+  description = "Externally managed master password, omitted from plans and state."
+  type        = string
+  sensitive   = true
+  ephemeral   = true
+  default     = null
+}
+
+variable "master_password_wo_version" {
+  description = "Increment when applying a new externally managed master password."
+  type        = number
+  default     = null
+}

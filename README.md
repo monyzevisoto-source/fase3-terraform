@@ -12,6 +12,21 @@ A infraestrutura será organizada em três camadas principais:
 2. Data, Messaging and ECR
 3. Kubernetes / EKS
 
+## Bancos de dados
+
+Os serviços `auth`, `flag` e `targeting` usam PostgreSQL no RDS, com os bancos
+`authdb`, `flagsdb` e `targetingdb`, respectivamente. O serviço `analytics`
+consome eventos do SQS e grava na tabela DynamoDB `ToggleMasterAnalytics`.
+
+### Correção do RDS de analytics para targeting
+
+A configuração anterior criava `rds_analytics` indevidamente. A correção remove
+essa instância e cria `rds_targeting`, com outro endpoint e senha gerenciada
+pelo Secrets Manager. Antes de aplicar, confira o plano e preserve quaisquer
+dados necessários: o módulo está configurado com `skip_final_snapshot = true`.
+Configure a `DATABASE_URL` do targeting com o novo endpoint, credenciais e
+banco `targetingdb`, e execute o `db/init.sql` do serviço.
+
 ## Argo CD
 
 O módulo `modules/argocd` instala o chart oficial `argo-cd` no namespace

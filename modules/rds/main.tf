@@ -42,7 +42,9 @@ resource "aws_db_instance" "postgresql" {
   instance_class              = var.instance_class
   db_name                     = var.database_name
   username                    = var.master_username
-  manage_master_user_password = true
+  manage_master_user_password = var.manage_master_user_password ? true : null
+  password_wo                 = var.master_password_wo
+  password_wo_version         = var.master_password_wo_version
   db_subnet_group_name        = aws_db_subnet_group.postgresql.name
   vpc_security_group_ids      = [aws_security_group.postgresql.id]
   publicly_accessible         = false

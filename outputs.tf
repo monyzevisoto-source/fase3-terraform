@@ -28,7 +28,7 @@ output "rds_instance_endpoints" {
   value = {
     auth      = module.rds_auth.endpoint
     flag      = module.rds_flag.endpoint
-    analytics = module.rds_analytics.endpoint
+    targeting = module.rds_targeting.endpoint
   }
 }
 
@@ -37,7 +37,7 @@ output "rds_security_group_id" {
   value = {
     auth      = module.rds_auth.security_group_id
     flag      = module.rds_flag.security_group_id
-    analytics = module.rds_analytics.security_group_id
+    targeting = module.rds_targeting.security_group_id
   }
 }
 

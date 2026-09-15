@@ -12,6 +12,14 @@ A infraestrutura será organizada em três camadas principais:
 2. Data, Messaging and ECR
 3. Kubernetes / EKS
 
+## Diagrama da infraestrutura
+
+![Diagrama da infraestrutura AWS](docs/IAC-INFRA.png)
+
+O diagrama mostra a VPC, subnets, EKS, NGINX Ingress, Argo CD, ECR, RDS,
+Redis, SQS e DynamoDB provisionados por este projeto.
+
+
 ## Bancos de dados
 
 Os serviços `auth`, `flag` e `targeting` usam PostgreSQL no RDS, com os bancos

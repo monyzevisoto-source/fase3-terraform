@@ -14,14 +14,6 @@ module "network" {
   tags         = local.common_tags
 }
 
-#module "data" {
-#  source       = "./modules/data"
-#  project_name = var.project_name
-#  environment  = var.environment
-#  region       = var.aws_region
-#  tags         = local.common_tags
-#}
-#
 module "eks" {
   metrics_server_addon_version = var.metrics_server_addon_version
   source                       = "./modules/eks"

@@ -32,7 +32,7 @@ port-forward.
 
 ## Estrutura do projeto
 
-`text
+```text
 .
 ├── main.tf, providers.tf, variables.tf, outputs.tf, versions.tf
 └── modules/
@@ -45,7 +45,7 @@ port-forward.
     ├── ecr/           # repositório de imagem por serviço
     ├── argocd/        # instalação do chart Argo CD
     └── ingress_nginx/  # NGINX Ingress e NLB
-`
+```
 
 Os arquivos da raiz compõem os módulos e expõem seus outputs. Variáveis
 específicas de ambiente devem ser fornecidas por terraform.tfvars ou por
@@ -62,43 +62,43 @@ argumentos -var. Não versionar credenciais, estado, planos ou valores secretos.
 
 Execute na raiz:
 
-`bash
+```bash
 terraform init
 terraform fmt -check -recursive
 terraform validate
 terraform plan -out=tfplan
 terraform apply tfplan
-`
+```
 
 Sempre revise o plan antes do apply, especialmente alterações de rede, IAM,
 substituições de banco, exposição pública e impacto de custo.
 
 Para configurar o kubectl:
 
-`bash
+```bash
 aws eks update-kubeconfig --region us-east-1 --name fiap-fase3-dev-cluster
 kubectl get nodes
-`
+```
 
 Para acessar o Argo CD localmente:
 
-`bash
+```bash
 kubectl -n argocd port-forward svc/argocd-server 8080:443
-`
+```
 
 Abra https://localhost:8080. A senha inicial está no Secret
 argocd-initial-admin-secret; troque-a após o primeiro acesso.
 
 ## Verificação
 
-`bash
+```bash
 kubectl get nodes
 kubectl -n ingress-nginx get pods,svc
 kubectl get ingress -A
 kubectl get hpa -A
 kubectl top nodes
 terraform plan
-`
+```
 
 O Terraform instala Argo CD e NGINX, mas não registra nem sincroniza as
 Applications dos serviços. Essa etapa é feita pelo repositório fase3-argocd.

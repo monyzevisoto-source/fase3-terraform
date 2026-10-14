@@ -133,7 +133,7 @@ variable "argocd_chart_version" {
 variable "gitops_repository_url" {
   description = "Git repository containing the Argo CD root and child Applications."
   type        = string
-  default     = "https://github.com/monyzevisoto-source/fase3-terraform.git"
+  default     = "https://github.com/monyzevisoto-source/fase3-argocd.git"
 }
 
 variable "ingress_nginx_chart_version" {

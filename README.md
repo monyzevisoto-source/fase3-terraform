@@ -19,8 +19,9 @@ Amazon EKS e fornecer seus serviços de dados, mensageria e exposição externa:
 - NGINX Ingress Controller com Network Load Balancer público.
 
 Este projeto cria a infraestrutura e gerencia a Application raiz do Argo CD via
-Terraform. A Application raiz sincroniza as Applications filhas e os manifests
-dos serviços armazenados em `argocd/` e `services/` neste repositório.
+Terraform. Os manifests dos serviços e as Applications filhas ficam no
+repositório separado `fase3-argocd`, responsável pelo deploy e atualização das
+imagens.
 
 ## Arquitetura
 
@@ -36,8 +37,6 @@ port-forward.
 ```text
 .
 ├── main.tf, providers.tf, variables.tf, outputs.tf, versions.tf
-├── argocd/            # Applications filhas sincronizadas pelo Argo CD
-├── services/          # manifests Kustomize dos cinco serviços
 └── modules/
     ├── network/       # VPC, subnets e rotas públicas
     ├── eks/           # cluster, nodes e Metrics Server
@@ -104,8 +103,8 @@ terraform plan
 ```
 
 O Terraform instala o Argo CD e registra a Application raiz. Em seguida, o
-Argo CD sincroniza as cinco Applications filhas e os manifests dos serviços
-a partir deste repositório.
+Argo CD sincroniza as cinco Applications filhas e os manifests dos serviços a
+partir do repositório `fase3-argocd`.
 
 ## Parâmetros importantes
 

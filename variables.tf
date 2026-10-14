@@ -130,6 +130,12 @@ variable "argocd_chart_version" {
   default     = "10.9.0"
 }
 
+variable "gitops_repository_url" {
+  description = "Git repository containing the Argo CD root and child Applications."
+  type        = string
+  default     = "https://github.com/monyzevisoto-source/fase3-terraform.git"
+}
+
 variable "ingress_nginx_chart_version" {
   description = "Pinned community ingress-nginx chart version, retained for lab compatibility after project retirement."
   type        = string

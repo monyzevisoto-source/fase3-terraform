@@ -158,9 +158,10 @@ module "ecr_analytics" {
 }
 
 module "argocd" {
-  source        = "./modules/argocd"
-  chart_version = var.argocd_chart_version
-  depends_on    = [module.eks]
+  source                = "./modules/argocd"
+  chart_version         = var.argocd_chart_version
+  gitops_repository_url = var.gitops_repository_url
+  depends_on            = [module.eks]
 }
 
 module "ingress_nginx" {

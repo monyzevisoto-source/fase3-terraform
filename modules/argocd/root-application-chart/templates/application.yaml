@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: {{ .Values.gitopsRepositoryUrl | quote }}
     targetRevision: main
-    path: argocd
+    path: argocd/aws
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

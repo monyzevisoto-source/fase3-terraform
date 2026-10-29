@@ -19,9 +19,11 @@ Amazon EKS e fornecer seus serviços de dados, mensageria e exposição externa:
 - NGINX Ingress Controller com Network Load Balancer público.
 
 Este projeto cria a infraestrutura e gerencia a Application raiz do Argo CD via
-Terraform. Os manifests dos serviços e as Applications filhas ficam no
-repositório separado `fase3-argocd`, responsável pelo deploy e atualização das
-imagens.
+Terraform. Os manifests dos serviços e as Applications filhas, incluindo
+`otel-collector-local` e sua Application de suporte, ficam no repositório
+separado `fase3-argocd`, responsável pelo deploy e atualização das imagens.
+Assim, o Collector permanece persistido pelo fluxo Terraform → Application raiz
+→ Applications filhas, sem duplicar a mesma Application em dois owners.
 
 ## Arquitetura
 
@@ -103,8 +105,8 @@ terraform plan
 ```
 
 O Terraform instala o Argo CD e registra a Application raiz. Em seguida, o
-Argo CD sincroniza as cinco Applications filhas e os manifests dos serviços a
-partir do repositório `fase3-argocd`.
+Argo CD sincroniza as Applications filhas — incluindo o OpenTelemetry Collector
+— e os manifests dos serviços a partir do repositório `fase3-argocd`.
 
 ## Parâmetros importantes
 
